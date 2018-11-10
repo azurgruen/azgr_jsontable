@@ -1,0 +1,30 @@
+<T3DataStructure>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>File</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<settings.filepath>
+						<TCEforms>
+							<label>Filepath</label>
+							<config>
+								<type>input</type>
+							</config>
+						</TCEforms>
+					</settings.filepath>
+					<settings.fileurl>
+						<TCEforms>
+							<label>FileURL</label>
+							<config>
+								<type>input</type>
+							</config>
+						</TCEforms>
+					</settings.fileurl>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

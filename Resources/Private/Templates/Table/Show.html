@@ -1,0 +1,63 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true" xmlns:v="http://typo3.org/ns/FluidTYPO3/Vhs/ViewHelpers">
+<f:layout name="Default" />
+
+<f:section name="main">
+
+<f:if condition="{data}">
+	{v:random.number() -> f:variable(name: 'random')}
+	<div id="c{random}">
+		<input class="search" placeholder="Suche" />
+		<table>
+			<f:for each="{data.rows}" as="row" iteration="iterator">
+				<f:if condition="{iterator.isFirst}">
+					<f:then>
+						<thead>
+							<tr>
+								<f:for each="{row.cell}" as="cell" key="label">
+									<td>
+										<span class="sort" data-sort="{label}">
+											<f:format.case mode="capital">{label}</f:format.case>
+										</span>
+									</td>
+								</f:for>
+							</tr>
+						</thead>
+						<tbody class="list">
+					</f:then>
+					<f:else if="{iterator.index} >= 1 && {iterator.cycle} < {iterator.total}">
+							<tr>
+								<f:for each="{row.cell}" as="cell" key="label">
+									<td class="{label}">
+										<f:format.html>{cell}</f:format.html>
+									</td>
+								</f:for>
+							</tr>
+					</f:else>
+					<f:else if="{iterator.isLast}">
+						</tbody>
+					</f:else>
+				</f:if>
+				
+			</f:for>
+		</table>
+		<ul class="pagination"></ul>
+	</div>
+	<v:asset.script path="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js" external="true" standalone="true" />
+	<v:asset.script name="s{random}" fluid="true">
+		var labels{random} = [
+			<f:for each="{data.rows.0.cell}" as="cell" key="label" iteration="celliterator">
+				'{label}'
+				<f:if condition="{celliterator.cycle} < {celliterator.total}">,</f:if>
+			</f:for>
+		];
+		
+		var options{random} = {v:format.plaintext(content:'{')}
+			valueNames: labels{random},
+			pagination: true,
+			page: 20
+		{v:format.plaintext(content:'}')};
+		var userList = new List('c{random}', options{random});
+	</v:asset.script>
+</f:if>
+
+</f:section>
